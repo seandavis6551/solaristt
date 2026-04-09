@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Work — Solaris TT</title>
+  <link rel="icon" type="image/png" href="../S.png" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #111318;
+      --bg-card: #1a1f2e;
+      --teal: #00c2a8;
+      --blue: #3b82f6;
+      --text: #f0f0f0;
+      --muted: #b8bfc9;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 5%;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(17, 19, 24, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      border-bottom: 1px solid rgba(0, 194, 168, 0.15);
+    }
+
+    nav .logo a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    nav .logo img { height: 42px; }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    nav ul a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    nav ul a:hover { color: var(--teal); }
+    nav ul a.active { color: var(--text); }
+
+    .nav-cta {
+      background: var(--teal);
+      color: #0d0d0d !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 4px;
+      font-weight: 600 !important;
+    }
+
+    .nav-cta:hover { background: #00a892; }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 9rem 5% 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 700px; height: 600px;
+      background: radial-gradient(circle, rgba(0,194,168,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .section-tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.8rem;
+    }
+
+    .page-header h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .page-header h1 span {
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .page-header p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    /* FILTER TABS */
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      padding: 0 5% 3rem;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--muted);
+      padding: 0.45rem 1.1rem;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      letter-spacing: 0.04em;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--teal);
+      color: var(--teal);
+    }
+
+    .filter-btn.active {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: #0d0d0d;
+      font-weight: 600;
+    }
+
+    /* FEATURED PROJECT */
+    .featured-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 5% 2.5rem;
+    }
+
+    .featured-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(0,194,168,0.25);
+      border-radius: 14px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 360px;
+      transition: border-color 0.25s;
+    }
+
+    .featured-card:hover { border-color: rgba(0,194,168,0.5); }
+
+    .featured-image {
+      background: linear-gradient(135deg, #0f1823 0%, #1a2535 50%, #0d1f2d 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      min-height: 280px;
+    }
+
+    .featured-image img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.9;
+    }
+
+    .featured-image .img-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      opacity: 0.4;
+    }
+
+    .featured-image .img-placeholder .icon { font-size: 3rem; }
+    .featured-image .img-placeholder p { font-size: 0.8rem; color: var(--muted); }
+
+    .featured-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 60%, rgba(26,31,46,0.6) 100%);
+    }
+
+    .featured-content {
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .cat-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      border: 1px solid rgba(0,194,168,0.3);
+      border-radius: 20px;
+      padding: 0.2rem 0.8rem;
+      width: fit-content;
+    }
+
+    .featured-content h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .featured-content p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+
+    .detail-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .detail-item {
+      display: flex;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .detail-item strong { color: var(--text); min-width: 70px; }
+
+    /* PROJECT GRID */
+    .grid-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 5% 5rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.3rem;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s;
+      cursor: default;
+    }
+
+    .project-card:hover {
+      border-color: rgba(0,194,168,0.3);
+      transform: translateY(-3px);
+    }
+
+    .card-image {
+      height: 170px;
+      background: linear-gradient(135deg, #0f1823, #1a2535);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-image img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.88;
+      transition: opacity 0.25s, transform 0.35s;
+    }
+
+    .project-card:hover .card-image img {
+      opacity: 1;
+      transform: scale(1.03);
+    }
+
+    .card-image .img-icon {
+      font-size: 2.2rem;
+      opacity: 0.3;
+    }
+
+    .card-body { padding: 1.4rem; }
+
+    .card-body .cat-tag { margin-bottom: 0.6rem; }
+
+    .card-body h3 {
+      font-size: 0.98rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.01em;
+    }
+
+    .card-body p {
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.6;
+    }
+
+    .stack-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.8rem;
+    }
+
+    .stack-tag {
+      font-size: 0.72rem;
+      background: rgba(0,194,168,0.08);
+      border: 1px solid rgba(0,194,168,0.18);
+      border-radius: 4px;
+      padding: 0.15rem 0.55rem;
+      color: var(--teal);
+    }
+
+    /* HIDDEN (for filter) */
+    .project-card[data-hidden="true"],
+    .featured-wrap[data-hidden="true"],
+    .showcase-group[data-hidden="true"] { display: none; }
+
+    /* CTA */
+    .cta-banner {
+      max-width: 900px;
+      margin: 0 auto 5rem;
+      padding: 0 5%;
+    }
+
+    .cta-inner {
+      background: linear-gradient(135deg, rgba(0,194,168,0.1), rgba(59,130,246,0.1));
+      border: 1px solid rgba(0,194,168,0.25);
+      border-radius: 14px;
+      padding: 3.5rem;
+      text-align: center;
+    }
+
+    .cta-inner h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+
+    .cta-inner p {
+      color: var(--muted);
+      margin-bottom: 2rem;
+      font-size: 1rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-primary {
+      background: var(--teal);
+      color: #0d0d0d;
+      padding: 0.9rem 2.2rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: background 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { background: #00a892; transform: translateY(-1px); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 2.5rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer img { height: 32px; }
+    footer p { color: var(--muted); font-size: 0.85rem; }
+
+    footer .footer-links { display: flex; gap: 1.5rem; }
+
+    footer .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    footer .footer-links a:hover { color: var(--teal); }
+
+    /* LOGO S */
+    .logo-s {
+      font-size: 1.7rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #3b82f6, #00c2a8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    /* SYSTEMS IN ACTION */
+    .showcase-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 5% 4rem;
+    }
+
+    .showcase-heading {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .showcase-heading h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .showcase-heading p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .showcase-group { margin-bottom: 4rem; }
+
+    .showcase-group-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(0,194,168,0.15);
+      padding-bottom: 0.6rem;
+    }
+
+    .mockup-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .mockup-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .browser-frame {
+      background: #1e2436;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.07);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .mockup-item:hover .browser-frame {
+      transform: translateY(-4px);
+      box-shadow: 0 28px 60px rgba(0,0,0,0.65), 0 0 0 1px rgba(0,194,168,0.2);
+    }
+
+    .browser-bar {
+      background: #252b3d;
+      padding: 9px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .b-dots { display: flex; gap: 5px; }
+
+    .b-dot { width: 9px; height: 9px; border-radius: 50%; }
+    .b-dot.r { background: #ff5f57; }
+    .b-dot.y { background: #ffbd2e; }
+    .b-dot.g { background: #28c840; }
+
+    .b-url {
+      background: #1a1f2e;
+      border-radius: 5px;
+      padding: 3px 10px;
+      font-size: 0.7rem;
+      color: #4b5563;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .browser-screen img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+    }
+
+    .mockup-info h4 {
+      font-size: 0.92rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .mockup-info p {
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.6;
+    }
+
+    .cap-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid rgba(0,194,168,0.25);
+      color: var(--teal);
+      border-radius: 3px;
+      padding: 0.15rem 0.5rem;
+      margin-bottom: 0.4rem;
+    }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      .grid-wrap { grid-template-columns: repeat(2, 1fr); }
+      .mockup-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .mockup-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      nav ul { display: none; }
+      .featured-card { grid-template-columns: 1fr; }
+      .featured-image { min-height: 200px; }
+      .featured-image::after { display: none; }
+      .grid-wrap { grid-template-columns: 1fr; }
+      .cta-inner { padding: 2.5rem 1.5rem; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">
+      <a href="index.html"><img src="../Solaris logo (2).png" alt="Solaris TT" /></a>
+    </div>
+    <ul>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="portfolio.html" class="active">Our Work</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="intake.html" class="nav-cta">Get Assessment</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="section-tag">Portfolio</div>
+    <h1>Real Systems.<br /><span>Real Results.</span></h1>
+    <p>Every project here was built for a real client or organisation. No mockups. No demos. Working systems in active use.</p>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterProjects('all')">All Work</button>
+    <button class="filter-btn" onclick="filterProjects('operations')">Operational Systems</button>
+    <button class="filter-btn" onclick="filterProjects('intelligence')">Intelligence & Data</button>
+    <button class="filter-btn" onclick="filterProjects('portals')">Portals & Intranets</button>
+  </div>
+
+  <!-- SYSTEMS IN ACTION -->
+  <div class="showcase-section">
+    <div class="showcase-heading">
+      <h2>MS 365 <span style="background:linear-gradient(135deg,#3b82f6,#00c2a8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Systems in Action</span></h2>
+      <p>Real dashboards, portals, and applications built and deployed for real organisations — shown as they appear on screen.</p>
+    </div>
+
+    <!-- Group 1: Command Intelligence -->
+    <div class="showcase-group" data-sg-category="intelligence">
+      <div class="showcase-group-label">Command Intelligence — Power BI</div>
+      <div class="mockup-grid">
+
+        <div class="mockup-item">
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <div class="b-dots"><div class="b-dot r"></div><div class="b-dot y"></div><div class="b-dot g"></div></div>
+              <div class="b-url">app.powerbi.com/groups/...</div>
+            </div>
+            <div class="browser-screen">
+              <img src="../Power Bi Command Center.png" alt="Power BI Command Centre" />
+            </div>
+          </div>
+          <div class="mockup-info">
+            <div class="cap-badge">Power BI</div>
+            <h4>Power BI Command Centre</h4>
+            <p>Real-time operational dashboard giving command a force-wide picture — active assets, deployments, and unit readiness in one view. No manual reporting required.</p>
+          </div>
+        </div>
+
+        <div class="mockup-item">
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <div class="b-dots"><div class="b-dot r"></div><div class="b-dot y"></div><div class="b-dot g"></div></div>
+              <div class="b-url">app.powerbi.com/groups/...</div>
+            </div>
+            <div class="browser-screen">
+              <img src="../HSE performance dashboard.png" alt="HSE Performance Dashboard" />
+            </div>
+          </div>
+          <div class="mockup-info">
+            <div class="cap-badge">Power BI</div>
+            <h4>HSE Performance Dashboard</h4>
+            <p>Live compliance and safety metrics for management review. Colour-coded indicators and trend analysis replace manually compiled reports and audit spreadsheets.</p>
+          </div>
+        </div>
+
+        <div class="mockup-item">
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <div class="b-dots"><div class="b-dot r"></div><div class="b-dot y"></div><div class="b-dot g"></div></div>
+              <div class="b-url">app.powerbi.com/groups/...</div>
+            </div>
+            <div class="browser-screen">
+              <img src="../Police incident Sample  DAshboard.png" alt="Incident Analytics Dashboard" />
+            </div>
+          </div>
+          <div class="mockup-info">
+            <div class="cap-badge">Power BI</div>
+            <h4>Incident Analytics Dashboard</h4>
+            <p>Operational incident tracking with category breakdowns, status filters, and trend data. Built for decision-making — not spreadsheet exports sent by email.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Group 2: Operational Applications -->
+    <div class="showcase-group" data-sg-category="operations">
+      <div class="showcase-group-label">Operational Applications — Power Apps &amp; Geospatial</div>
+      <div class="mockup-grid">
+
+        <div class="mockup-item">
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <div class="b-dots"><div class="b-dot r"></div><div class="b-dot y"></div><div class="b-dot g"></div></div>
+              <div class="b-url">make.powerapps.com/...</div>
+            </div>
+            <div class="browser-screen">
+              <img src="../Incident -Activity  Log .png" alt="Operations Activity Log" />
+            </div>
+          </div>
+          <div class="mockup-info">
+            <div class="cap-badge">Power Apps</div>
+            <h4>Operations Activity Log</h4>
+            <p>Centralised digital log replacing paper registers. Searchable, filterable, audit-ready records of all operational activity with timestamps and asset attribution.</p>
+          </div>
+        </div>
+
+        <div class="mockup-item">
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <div class="b-dots"><div class="b-dot r"></div><div class="b-dot y"></div><div class="b-dot g"></div></div>
+              <div class="b-url">make.powerapps.com/...</div>
+            </div>
+            <div class="browser-screen">
+              <img src="../Geospacial awareness.png" alt="Geospatial Awareness Map" />
+            </div>
+          </div>
+          <div class="mockup-info">
+            <div class="cap-badge">Power Apps · Maps</div>
+            <h4>Geospatial Awareness Map</h4>
+            <p>Live map showing active operations and deployed assets with precision coordinate tracking. Know exactly where everything is — updated in real time, no phone calls needed.</p>
+          </div>
+        </div>
+
+        <div class="mockup-item">
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <div class="b-dots"><div class="b-dot r"></div><div class="b-dot y"></div><div class="b-dot g"></div></div>
+              <div class="b-url">make.powerapps.com/...</div>
+            </div>
+            <div class="browser-screen">
+              <img src="../App Map Tracking.png" alt="Mobile Asset Tracking" />
+            </div>
+          </div>
+          <div class="mockup-info">
+            <div class="cap-badge">Power Apps · Mobile</div>
+            <h4>Mobile Asset Tracking</h4>
+            <p>Field interface for capturing real-time asset and personnel locations on any device. Data flows instantly to headquarters — no radio check-ins, no manual logs.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Group 3: Connected Portals -->
+    <div class="showcase-group" data-sg-category="portals">
+      <div class="showcase-group-label">Connected Portals — SharePoint &amp; MS 365</div>
+      <div class="mockup-grid">
+
+        <div class="mockup-item">
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <div class="b-dots"><div class="b-dot r"></div><div class="b-dot y"></div><div class="b-dot g"></div></div>
+              <div class="b-url">organisation.sharepoint.com/...</div>
+            </div>
+            <div class="browser-screen">
+              <img src="../Sharepoint Portal.png" alt="Organisation Portal" />
+            </div>
+          </div>
+          <div class="mockup-info">
+            <div class="cap-badge">SharePoint</div>
+            <h4>Organisation Portal</h4>
+            <p>Centralised SharePoint intranet connecting staff, documents, and workflows under one access point. Replaces shared drives, email chains, and scattered file folders.</p>
+          </div>
+        </div>
+
+        <div class="mockup-item">
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <div class="b-dots"><div class="b-dot r"></div><div class="b-dot y"></div><div class="b-dot g"></div></div>
+              <div class="b-url">organisation.sharepoint.com/...</div>
+            </div>
+            <div class="browser-screen">
+              <img src="../TTDF Sample Sharepoint .png" alt="Operations Intranet" />
+            </div>
+          </div>
+          <div class="mockup-info">
+            <div class="cap-badge">SharePoint · MS 365</div>
+            <h4>Operations Intranet</h4>
+            <p>Custom SharePoint site for an operational unit — centralising SOPs, announcements, personnel records, and task management in one always-accessible location.</p>
+          </div>
+        </div>
+
+        <div class="mockup-item">
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <div class="b-dots"><div class="b-dot r"></div><div class="b-dot y"></div><div class="b-dot g"></div></div>
+              <div class="b-url">organisation.sharepoint.com/...</div>
+            </div>
+            <div class="browser-screen">
+              <img src="../Tetron Sample Sharepoint page.png" alt="Base Administration Portal" />
+            </div>
+          </div>
+          <div class="mockup-info">
+            <div class="cap-badge">SharePoint · MS 365</div>
+            <h4>Base Administration Portal</h4>
+            <p>Dedicated SharePoint hub for site operations — housing SOPs, rosters, incident documentation, and admin workflows. Every team member sees what they need, nothing they don't.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Group 4: Data & Intelligence -->
+    <div class="showcase-group" data-sg-category="intelligence">
+      <div class="showcase-group-label">Data &amp; Intelligence Systems</div>
+      <div class="mockup-grid">
+
+        <div class="mockup-item">
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <div class="b-dots"><div class="b-dot r"></div><div class="b-dot y"></div><div class="b-dot g"></div></div>
+              <div class="b-url">app.powerbi.com/groups/...</div>
+            </div>
+            <div class="browser-screen">
+              <img src="../Customs and Excise Sample Dashboard.png" alt="Sector Analytics Dashboard" />
+            </div>
+          </div>
+          <div class="mockup-info">
+            <div class="cap-badge">Power BI · Excel</div>
+            <h4>Case &amp; Activity Analytics Dashboard</h4>
+            <p>Built for enforcement and regulatory organisations — tracks case categories, statuses, and volume trends in real time. Replaces manual Excel logs with a live, filterable intelligence picture.</p>
+          </div>
+        </div>
+
+        <div class="mockup-item">
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <div class="b-dots"><div class="b-dot r"></div><div class="b-dot y"></div><div class="b-dot g"></div></div>
+              <div class="b-url">app.powerbi.com/groups/...</div>
+            </div>
+            <div class="browser-screen">
+              <img src="../Azure maps in Power Bi Tracker.png" alt="Geographic Operations Tracker" />
+            </div>
+          </div>
+          <div class="mockup-info">
+            <div class="cap-badge">Power BI · Azure Maps</div>
+            <h4>Geographic Operations Tracker</h4>
+            <p>Power BI integrated with live mapping for geographic data intelligence. Track deployments, incidents, or assets across any region — giving management real spatial awareness without specialist GIS tools.</p>
+          </div>
+        </div>
+
+        <div class="mockup-item">
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <div class="b-dots"><div class="b-dot r"></div><div class="b-dot y"></div><div class="b-dot g"></div></div>
+              <div class="b-url">organisation.sharepoint.com/...</div>
+            </div>
+            <div class="browser-screen">
+              <img src="../Share point access portal.png" alt="Secure Access Portal" />
+            </div>
+          </div>
+          <div class="mockup-info">
+            <div class="cap-badge">SharePoint · MS 365</div>
+            <h4>Records &amp; Access Portal</h4>
+            <p>Secure SharePoint portal managing staff certifications, training records, and key documentation. Role-based access ensures supervisors, HR, and management each see exactly what they need.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FEATURED — DOMS -->
+  <div class="featured-wrap" data-category="operations">
+    <div class="featured-card">
+      <div class="featured-image">
+        <img src="../doms main menu.png" alt="DOMS Main Menu" onerror="this.style.display='none'" />
+        <div class="img-placeholder">
+          <div class="icon">🗺️</div>
+          <p>DOMS Screenshot</p>
+        </div>
+      </div>
+      <div class="featured-content">
+        <div class="cat-tag">Flagship Project · Operational Systems</div>
+        <h2>TTDF Digital Operations Management System</h2>
+        <p>A real-time force-wide operational platform built on Microsoft 365 — covering base management, asset tracking, live operations logging, geospatial mapping, and command intelligence dashboards.</p>
+        <div class="detail-list">
+          <div class="detail-item"><strong>Client:</strong> TTDF / NOFC</div>
+          <div class="detail-item"><strong>Stack:</strong> Power Apps · Power BI · SharePoint · Power Automate</div>
+          <div class="detail-item"><strong>Scope:</strong> Base Register · Asset Register · OPS Log · Live Map · Command Dashboards</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-banner">
+    <div class="cta-inner">
+      <h2>Want a System Like This?</h2>
+      <p>Take our free assessment and we'll tell you exactly what your organisation needs and what it'll look like.</p>
+      <a href="intake.html" class="btn-primary">Get Your Free Assessment</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <img src="../Solaris logo (2).png" alt="Solaris TT" />
+    <p>© 2026 Solaris TT. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="services.html">Services</a>
+      <a href="portfolio.html">Our Work</a>
+      <a href="team.html">Team</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    function filterProjects(cat) {
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Filter showcase groups
+      document.querySelectorAll('.showcase-group').forEach(group => {
+        if (cat === 'all' || group.dataset.sgCategory === cat) {
+          group.removeAttribute('data-hidden');
+        } else {
+          group.setAttribute('data-hidden', 'true');
+        }
+      });
+
+      // Featured DOMS always visible
+      const featured = document.querySelector('.featured-wrap');
+      if (featured) featured.removeAttribute('data-hidden');
+    }
+  </script>
+
+</body>
+</html>

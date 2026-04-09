@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Team — Solaris TT</title>
+  <link rel="icon" type="image/png" href="../S.png" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #111318;
+      --bg-card: #1a1f2e;
+      --teal: #00c2a8;
+      --blue: #3b82f6;
+      --text: #f0f0f0;
+      --muted: #b8bfc9;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 5%;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(17, 19, 24, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      border-bottom: 1px solid rgba(0, 194, 168, 0.15);
+    }
+
+    nav .logo a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    nav .logo img { height: 42px; }
+
+    .logo-s {
+      font-size: 1.7rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #3b82f6, #00c2a8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    nav ul a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    nav ul a:hover { color: var(--teal); }
+    nav ul a.active { color: var(--text); }
+
+    .nav-cta {
+      background: var(--teal);
+      color: #0d0d0d !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 4px;
+      font-weight: 600 !important;
+    }
+
+    .nav-cta:hover { background: #00a892; }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 9rem 5% 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 700px; height: 600px;
+      background: radial-gradient(circle, rgba(0,194,168,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .section-tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.8rem;
+    }
+
+    .page-header h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .page-header h1 span {
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .page-header p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* TEAM CARDS */
+    .team-section {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 5% 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .team-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 2.8rem 2.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+
+    .team-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .team-card.sean::before {
+      background: linear-gradient(90deg, var(--teal), var(--blue));
+    }
+
+    .team-card.ria::before {
+      background: linear-gradient(90deg, var(--blue), var(--teal));
+    }
+
+    .team-card:hover {
+      border-color: rgba(0,194,168,0.3);
+      transform: translateY(-3px);
+    }
+
+    .team-card:hover::before { opacity: 1; }
+
+    /* AVATAR */
+    .avatar {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      flex-shrink: 0;
+    }
+
+    .avatar.sean-avatar {
+      background: linear-gradient(135deg, rgba(0,194,168,0.2), rgba(59,130,246,0.2));
+      border: 2px solid rgba(0,194,168,0.4);
+      color: var(--teal);
+    }
+
+    .avatar.ria-avatar {
+      background: linear-gradient(135deg, rgba(59,130,246,0.2), rgba(0,194,168,0.2));
+      border: 2px solid rgba(59,130,246,0.4);
+      color: var(--blue);
+    }
+
+    /* Replace avatar with photo when available */
+    .avatar img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .card-intro { display: flex; align-items: center; gap: 1.2rem; }
+
+    .intro-text {}
+
+    .role-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.75rem;
+      border-radius: 20px;
+      margin-bottom: 0.35rem;
+    }
+
+    .role-badge.teal {
+      color: var(--teal);
+      border: 1px solid rgba(0,194,168,0.3);
+      background: rgba(0,194,168,0.06);
+    }
+
+    .role-badge.blue {
+      color: var(--blue);
+      border: 1px solid rgba(59,130,246,0.3);
+      background: rgba(59,130,246,0.06);
+    }
+
+    .intro-text h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .bio {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.75;
+      border-left: 2px solid rgba(0,194,168,0.2);
+      padding-left: 1rem;
+    }
+
+    .skill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .skill-tag {
+      font-size: 0.78rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 5px;
+      padding: 0.25rem 0.7rem;
+      color: var(--text);
+    }
+
+    .skill-tag.highlight {
+      background: rgba(0,194,168,0.08);
+      border-color: rgba(0,194,168,0.22);
+      color: var(--teal);
+    }
+
+    /* TOGETHER SECTION */
+    .together-section {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 5% 3rem;
+      text-align: center;
+    }
+
+    .together-card {
+      background: linear-gradient(135deg, rgba(0,194,168,0.07), rgba(59,130,246,0.07));
+      border: 1px solid rgba(0,194,168,0.18);
+      border-radius: 14px;
+      padding: 3rem 2.5rem;
+    }
+
+    .together-card .section-tag { margin-bottom: 1rem; }
+
+    .together-card h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.2rem;
+    }
+
+    .together-card p {
+      color: var(--muted);
+      font-size: 0.97rem;
+      line-height: 1.8;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    /* CTA */
+    .cta-banner {
+      max-width: 900px;
+      margin: 3rem auto 5rem;
+      padding: 0 5%;
+    }
+
+    .cta-inner {
+      background: linear-gradient(135deg, rgba(0,194,168,0.1), rgba(59,130,246,0.1));
+      border: 1px solid rgba(0,194,168,0.25);
+      border-radius: 14px;
+      padding: 3.5rem;
+      text-align: center;
+    }
+
+    .cta-inner h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+
+    .cta-inner p {
+      color: var(--muted);
+      margin-bottom: 2rem;
+      font-size: 1rem;
+      max-width: 460px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-primary {
+      background: var(--teal);
+      color: #0d0d0d;
+      padding: 0.9rem 2.2rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: background 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { background: #00a892; transform: translateY(-1px); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 2.5rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer img { height: 32px; }
+    footer p { color: var(--muted); font-size: 0.85rem; }
+    footer .footer-links { display: flex; gap: 1.5rem; }
+
+    footer .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    footer .footer-links a:hover { color: var(--teal); }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav ul { display: none; }
+      .team-section { grid-template-columns: 1fr; }
+      .cta-inner { padding: 2.5rem 1.5rem; }
+      .together-card { padding: 2rem 1.5rem; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">
+      <a href="index.html"><img src="../Solaris logo (2).png" alt="Solaris TT" /></a>
+    </div>
+    <ul>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="portfolio.html">Our Work</a></li>
+      <li><a href="team.html" class="active">Team</a></li>
+      <li><a href="intake.html" class="nav-cta">Get Assessment</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="section-tag">The Team</div>
+    <h1>Two Directors.<br /><span>One Vision.</span></h1>
+    <p>Technical depth and compliance expertise — built into the same consultancy from day one.</p>
+  </div>
+
+  <!-- TEAM CARDS -->
+  <div class="team-section">
+
+    <!-- SEAN -->
+    <div class="team-card sean">
+      <div class="card-intro">
+        <div class="avatar sean-avatar">S</div>
+        <div class="intro-text">
+          <div class="role-badge teal">Technical Director</div>
+          <h2>Technical Director</h2>
+        </div>
+      </div>
+      <p class="bio">With a background in national security operations and over a decade working across Microsoft 365, Power Platform, and operational data systems — our Technical Director brings military discipline and real-world credibility to every engagement. Every system delivered works on day one and holds up under pressure.</p>
+      <div class="skill-grid">
+        <span class="skill-tag highlight">Power BI</span>
+        <span class="skill-tag highlight">Power Apps</span>
+        <span class="skill-tag highlight">Power Automate</span>
+        <span class="skill-tag highlight">SharePoint</span>
+        <span class="skill-tag">Excel Advanced</span>
+        <span class="skill-tag">MS 365</span>
+        <span class="skill-tag">Operational Systems Design</span>
+        <span class="skill-tag">Database Architecture</span>
+        <span class="skill-tag">Cybersecurity (Building)</span>
+        <span class="skill-tag">TTDF / NOFC</span>
+      </div>
+    </div>
+
+    <!-- RIA -->
+    <div class="team-card ria">
+      <div class="card-intro">
+        <div class="avatar ria-avatar">R</div>
+        <div class="intro-text">
+          <div class="role-badge blue">Commercial Director</div>
+          <h2>Commercial Director</h2>
+        </div>
+      </div>
+      <p class="bio">Our Commercial Director brings over a decade of experience across the energy sector, having worked with industry leaders including Shell and National Helicopters. Expertise spans procurement, tendering, HSE compliance, contract management, and auditing — with deep roots in oil and gas operations and large-scale business processes. NEBOSH certified, with a proven track record of helping organisations win tenders and stay compliant.</p>
+      <div class="skill-grid">
+        <span class="skill-tag highlight">Tender Preparation</span>
+        <span class="skill-tag highlight">HSE Compliance</span>
+        <span class="skill-tag highlight">Procurement</span>
+        <span class="skill-tag highlight">Bid Writing</span>
+        <span class="skill-tag">Contract Management</span>
+        <span class="skill-tag">Auditing</span>
+        <span class="skill-tag">NEBOSH Certified</span>
+        <span class="skill-tag">Shell</span>
+        <span class="skill-tag">National Helicopters</span>
+        <span class="skill-tag">Energy Sector</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TOGETHER -->
+  <div class="together-section">
+    <div class="together-card">
+      <div class="section-tag">Why It Works</div>
+      <h2>Technical + Compliance. Together.</h2>
+      <p>Most consultancies do one or the other. Our technical team builds the systems — databases, dashboards, automation, portals. Our compliance team navigates the procurement landscape — tenders, compliance packages, bid documentation. Clients who win contracts often need systems to manage them. Clients who build systems often need compliance documentation to operate them. That cross-over is built into everything we do.</p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-banner">
+    <div class="cta-inner">
+      <h2>Ready to Work With Us?</h2>
+      <p>Take the free assessment and we'll get back to you with exactly what your organisation needs.</p>
+      <a href="intake.html" class="btn-primary">Get Your Free Assessment</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <img src="../Solaris logo (2).png" alt="Solaris TT" />
+    <p>© 2026 Solaris TT. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="services.html">Services</a>
+      <a href="portfolio.html">Our Work</a>
+      <a href="team.html">Team</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+
+</body>
+</html>

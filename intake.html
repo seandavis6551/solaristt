@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Intake — Solaris TT</title>
+  <link rel="icon" type="image/png" href="../S.png" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #111318;
+      --bg-card: #1a1f2e;
+      --teal: #00c2a8;
+      --blue: #3b82f6;
+      --text: #f0f0f0;
+      --muted: #b8bfc9;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 5%;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(17, 19, 24, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      border-bottom: 1px solid rgba(0, 194, 168, 0.15);
+    }
+
+    nav .logo a { display: flex; align-items: center; text-decoration: none; }
+    nav .logo img { height: 42px; }
+
+    nav ul { display: flex; list-style: none; gap: 2rem; }
+
+    nav ul a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    nav ul a:hover { color: var(--teal); }
+
+    .nav-cta {
+      background: var(--teal);
+      color: #0d0d0d !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 4px;
+      font-weight: 600 !important;
+    }
+
+    .nav-cta:hover { background: #00a892; }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 9rem 5% 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 700px; height: 600px;
+      background: radial-gradient(circle, rgba(0,194,168,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .section-tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.8rem;
+    }
+
+    .page-header h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .page-header h1 span {
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .page-header p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    /* TRUST STRIP */
+    .trust-strip {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      padding: 1.5rem 5% 0;
+      margin-bottom: 2.5rem;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .trust-item span.icon { color: var(--teal); font-size: 1rem; }
+
+    /* FORM WRAPPER */
+    .form-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 5% 5rem;
+    }
+
+    .form-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 0.5rem;
+      overflow: hidden;
+    }
+
+    .form-card iframe {
+      width: 100%;
+      min-height: 700px;
+      border: none;
+      border-radius: 10px;
+      display: block;
+    }
+
+    /* CONTACT STRIP */
+    .contact-strip {
+      max-width: 760px;
+      margin: 0 auto 5rem;
+      padding: 0 5%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+
+    .contact-item {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .contact-item:hover { border-color: var(--teal); transform: translateY(-2px); }
+
+    .contact-item-icon {
+      width: 42px; height: 42px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(0,194,168,0.12), rgba(59,130,246,0.12));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .contact-item-text .label {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.2rem;
+    }
+
+    .contact-item-text p {
+      font-size: 0.88rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 2.5rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer img { height: 32px; }
+    footer p { color: var(--muted); font-size: 0.85rem; }
+    footer .footer-links { display: flex; gap: 1.5rem; }
+
+    footer .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    footer .footer-links a:hover { color: var(--teal); }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav ul { display: none; }
+      .contact-strip { grid-template-columns: 1fr; }
+      .trust-strip { gap: 1.2rem; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">
+      <a href="index.html"><img src="../Solaris logo (2).png" alt="Solaris TT" /></a>
+    </div>
+    <ul>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="portfolio.html">Our Work</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="intake.html" class="nav-cta">Get Assessment</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="section-tag">Client Intake</div>
+    <h1>Tell Us About<br /><span>Your Business</span></h1>
+    <p>Answer a few short questions and we'll come back to you with a clear, tailored recommendation — no obligation, no sales pitch.</p>
+  </div>
+
+  <!-- TRUST STRIP -->
+  <div class="trust-strip">
+    <div class="trust-item"><span class="icon">⏱</span> 3–5 minutes to complete</div>
+    <div class="trust-item"><span class="icon">🔒</span> Your information is private</div>
+    <div class="trust-item"><span class="icon">💬</span> We respond within 24 hours</div>
+  </div>
+
+  <!-- FORM -->
+  <div class="form-wrap">
+    <div class="form-card">
+      <iframe
+        src="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=GEN7JxgtT0i91llwNgFnxgZyGArYvvVIm6wHNkK6DctUQzRPNklQWTRSUzFXU0o2RFJTOFlLQ1hYTC4u&embed=true"
+        width="100%"
+        style="min-height:700px; border:none; border-radius:10px;"
+        allowfullscreen
+        webkitallowfullscreen
+        mozallowfullscreen
+        msallowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <!-- CONTACT STRIP -->
+  <div class="contact-strip">
+    <a href="https://wa.me/18684901361" class="contact-item" target="_blank">
+      <div class="contact-item-icon">💬</div>
+      <div class="contact-item-text">
+        <div class="label">Prefer to talk?</div>
+        <p>1868-490-1361</p>
+      </div>
+    </a>
+    <a href="mailto:info@solaristt.com" class="contact-item">
+      <div class="contact-item-icon">✉️</div>
+      <div class="contact-item-text">
+        <div class="label">Email</div>
+        <p>info@solaristt.com</p>
+      </div>
+    </a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <img src="../Solaris logo (2).png" alt="Solaris TT" />
+    <p>© 2026 Solaris TT. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="services.html">Services</a>
+      <a href="portfolio.html">Our Work</a>
+      <a href="team.html">Team</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+
+</body>
+</html>

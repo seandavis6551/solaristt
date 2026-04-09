@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solaris TT — Digital Transformation & Compliance Consultancy</title>
+  <link rel="icon" type="image/png" href="../S.png" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #111318;
+      --bg-card: #1a1f2e;
+      --teal: #00c2a8;
+      --blue: #3b82f6;
+      --text: #f0f0f0;
+      --muted: #9ca3af;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 5%;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(17, 19, 24, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      border-bottom: 1px solid rgba(0, 194, 168, 0.15);
+    }
+
+    nav .logo img {
+      height: 42px;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    nav ul a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    nav ul a:hover { color: var(--teal); }
+
+    .nav-cta {
+      background: var(--teal);
+      color: #0d0d0d !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 4px;
+      font-weight: 600 !important;
+    }
+
+    .nav-cta:hover { background: #00a892; color: #0d0d0d !important; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8rem 5% 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(0,194,168,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-ms-badge {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 5%;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(26, 31, 46, 0.85);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 0.65rem 1.1rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-ms-badge svg { width: 22px; height: 22px; flex-shrink: 0; }
+
+    .hero-ms-badge-text { line-height: 1.3; }
+
+    .hero-ms-badge-text span:first-child {
+      display: block;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero-ms-badge-text span:last-child {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    @media (max-width: 768px) {
+      .hero-ms-badge { bottom: 1.5rem; left: 50%; transform: translateX(-50%); white-space: nowrap; }
+    }
+
+    /* HERO LOGO MARQUEE */
+    .marquee-frame {
+      display: flex;
+      width: fit-content;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 auto 2.5rem;
+      background: rgba(17, 20, 30, 0.85);
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 0 1.5rem;
+    }
+
+    .bulb-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 0.65rem 0;
+    }
+
+    .bulb-strip span {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #1b1f2c;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: block;
+      animation: bulb-chase 2.8s ease-in-out infinite;
+    }
+
+    /* Chase left → right on top strip */
+    .bulb-strip.top span:nth-child(1)  { animation-delay: 0.00s; }
+    .bulb-strip.top span:nth-child(2)  { animation-delay: 0.14s; }
+    .bulb-strip.top span:nth-child(3)  { animation-delay: 0.28s; }
+    .bulb-strip.top span:nth-child(4)  { animation-delay: 0.42s; }
+    .bulb-strip.top span:nth-child(5)  { animation-delay: 0.56s; }
+    .bulb-strip.top span:nth-child(6)  { animation-delay: 0.70s; }
+    .bulb-strip.top span:nth-child(7)  { animation-delay: 0.84s; }
+    .bulb-strip.top span:nth-child(8)  { animation-delay: 0.98s; }
+    .bulb-strip.top span:nth-child(9)  { animation-delay: 1.12s; }
+    .bulb-strip.top span:nth-child(10) { animation-delay: 1.26s; }
+    .bulb-strip.top span:nth-child(11) { animation-delay: 1.40s; }
+    .bulb-strip.top span:nth-child(12) { animation-delay: 1.54s; }
+
+    /* Chase right → left on bottom strip (continuous loop feel) */
+    .bulb-strip.bot span:nth-child(1)  { animation-delay: 1.54s; }
+    .bulb-strip.bot span:nth-child(2)  { animation-delay: 1.40s; }
+    .bulb-strip.bot span:nth-child(3)  { animation-delay: 1.26s; }
+    .bulb-strip.bot span:nth-child(4)  { animation-delay: 1.12s; }
+    .bulb-strip.bot span:nth-child(5)  { animation-delay: 0.98s; }
+    .bulb-strip.bot span:nth-child(6)  { animation-delay: 0.84s; }
+    .bulb-strip.bot span:nth-child(7)  { animation-delay: 0.70s; }
+    .bulb-strip.bot span:nth-child(8)  { animation-delay: 0.56s; }
+    .bulb-strip.bot span:nth-child(9)  { animation-delay: 0.42s; }
+    .bulb-strip.bot span:nth-child(10) { animation-delay: 0.28s; }
+    .bulb-strip.bot span:nth-child(11) { animation-delay: 0.14s; }
+    .bulb-strip.bot span:nth-child(12) { animation-delay: 0.00s; }
+
+    @keyframes bulb-chase {
+      0%, 20%, 80%, 100% {
+        background: #1b1f2c;
+        box-shadow: none;
+      }
+      45%, 55% {
+        background: #fff5b0;
+        box-shadow: 0 0 6px 2px rgba(255,235,100,0.85), 0 0 14px 5px rgba(255,210,60,0.4);
+      }
+    }
+
+    .marquee-logo {
+      padding: 1.4rem 2.2rem;
+    }
+
+    .marquee-logo img {
+      height: 88px;
+      display: block;
+      filter: drop-shadow(0 0 20px rgba(0,194,168,0.4));
+    }
+
+    .hero-tag {
+      display: inline-block;
+      border: 1px solid var(--teal);
+      color: var(--teal);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 20px;
+      margin-bottom: 1.8rem;
+      text-align: center;
+    }
+
+    .hero h1 { text-align: center; }
+    .hero p  { text-align: center; }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--teal);
+      color: #0d0d0d;
+      padding: 0.85rem 2rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-primary:hover { background: #00a892; transform: translateY(-1px); }
+
+    .btn-secondary {
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--text);
+      padding: 0.85rem 2rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .btn-secondary:hover { border-color: var(--teal); transform: translateY(-1px); }
+
+    /* STATS */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      padding: 3rem 5%;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .stat { text-align: center; }
+
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* TECH STRIP */
+    .tech-strip {
+      padding: 3rem 5%;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .tech-strip-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.8rem;
+    }
+
+    .tech-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tech-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0.75;
+      transition: opacity 0.2s;
+    }
+
+    .tech-item:hover { opacity: 1; }
+
+    .tech-item svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .tech-item span {
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* WHAT WE DO */
+    .section {
+      padding: 5rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.8rem;
+    }
+
+    .section h2 {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin-bottom: 3rem;
+    }
+
+    /* SERVICE CARDS */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 2rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .service-card:hover {
+      border-color: var(--teal);
+      transform: translateY(-3px);
+    }
+
+    .service-icon {
+      width: 44px; height: 44px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(0,194,168,0.15), rgba(59,130,246,0.15));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+
+    .service-card p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* WHY SOLARIS */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .why-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 1.5rem;
+      background: var(--bg-card);
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .why-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--teal);
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .why-item h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .why-item p {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* CTA BANNER */
+    .cta-banner {
+      margin: 2rem 5% 5rem;
+      background: linear-gradient(135deg, rgba(0,194,168,0.1), rgba(59,130,246,0.1));
+      border: 1px solid rgba(0,194,168,0.25);
+      border-radius: 12px;
+      padding: 3.5rem;
+      text-align: center;
+    }
+
+    .cta-banner h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .cta-banner p {
+      color: var(--muted);
+      margin-bottom: 2rem;
+      font-size: 1rem;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 2.5rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer img { height: 32px; }
+
+    footer p {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    footer .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    footer .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    footer .footer-links a:hover { color: var(--teal); }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav ul { display: none; }
+      .stats { gap: 2rem; }
+      .cta-banner { padding: 2.5rem 1.5rem; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">
+      <a href="index.html"><img src="../Solaris logo (2).png" alt="Solaris TT" /></a>
+    </div>
+    <ul>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="portfolio.html">Our Work</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="intake.html" class="nav-cta">Get Assessment</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+
+      <!-- MARQUEE LOGO -->
+      <div class="marquee-frame">
+        <div class="bulb-strip top">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="marquee-logo">
+          <img src="../Solaris logo (2).png" alt="Solaris TT" />
+        </div>
+        <div class="bulb-strip bot">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <div class="hero-tag">Digital Transformation · Commercial · Results</div>
+      <h1>We Build Systems.<br /><span>You Stay Ahead.</span></h1>
+      <p>Solaris TT is Trinidad & Tobago's operational digital transformation and compliance consultancy. We turn paper-based processes into intelligent systems — and help businesses win the tenders that fund their growth.</p>
+      <div class="hero-buttons">
+        <a href="intake.html" class="btn-primary">Get Your Free Assessment</a>
+        <a href="portfolio.html" class="btn-secondary">See Our Work</a>
+      </div>
+    </div>
+    <!-- Microsoft Badge -->
+    <div class="hero-ms-badge">
+      <svg viewBox="0 0 23 23" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0"  y="0"  width="11" height="11" fill="#f25022"/>
+        <rect x="12" y="0"  width="11" height="11" fill="#7fba00"/>
+        <rect x="0"  y="12" width="11" height="11" fill="#00a4ef"/>
+        <rect x="12" y="12" width="11" height="11" fill="#ffb900"/>
+      </svg>
+      <div class="hero-ms-badge-text">
+        <span>Powered by</span>
+        <span>Microsoft 365</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-number">10+</div>
+      <div class="stat-label">Systems Delivered</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">4</div>
+      <div class="stat-label">Service Lines</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">2</div>
+      <div class="stat-label">Industry Directors</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">TT</div>
+      <div class="stat-label">Locally Rooted</div>
+    </div>
+  </div>
+
+  <!-- TECH STRIP -->
+  <div class="tech-strip">
+    <div class="tech-strip-label">Technologies We Build With</div>
+    <div class="tech-logos">
+
+      <!-- Microsoft -->
+      <div class="tech-item">
+        <svg viewBox="0 0 23 23" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0"  y="0"  width="11" height="11" fill="#f25022"/>
+          <rect x="12" y="0"  width="11" height="11" fill="#7fba00"/>
+          <rect x="0"  y="12" width="11" height="11" fill="#00a4ef"/>
+          <rect x="12" y="12" width="11" height="11" fill="#ffb900"/>
+        </svg>
+        <span>Microsoft 365</span>
+      </div>
+
+      <!-- Power BI -->
+      <div class="tech-item">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2"  y="18" width="6" height="12" rx="1" fill="#f2c811"/>
+          <rect x="10" y="12" width="6" height="18" rx="1" fill="#f2c811" opacity="0.85"/>
+          <rect x="18" y="6"  width="6" height="24" rx="1" fill="#f2c811" opacity="0.7"/>
+          <rect x="26" y="2"  width="4" height="28" rx="1" fill="#f2c811" opacity="0.55"/>
+        </svg>
+        <span>Power BI</span>
+      </div>
+
+      <!-- Power Apps -->
+      <div class="tech-item">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="14" fill="none" stroke="#742774" stroke-width="2"/>
+          <polygon points="11,10 24,16 11,22" fill="#742774"/>
+        </svg>
+        <span>Power Apps</span>
+      </div>
+
+      <!-- Power Automate -->
+      <div class="tech-item">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 4 L28 16 L16 28 L4 16 Z" fill="none" stroke="#0066ff" stroke-width="2"/>
+          <path d="M12 16 L18 10 L18 14 L22 14 L22 18 L18 18 L18 22 Z" fill="#0066ff"/>
+        </svg>
+        <span>Power Automate</span>
+      </div>
+
+      <!-- SharePoint -->
+      <div class="tech-item">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="12" r="8" fill="#036c70"/>
+          <circle cx="12" cy="20" r="8" fill="#1a9ba1" opacity="0.9"/>
+          <circle cx="20" cy="24" r="6" fill="#37c6d0" opacity="0.85"/>
+        </svg>
+        <span>SharePoint</span>
+      </div>
+
+      <!-- Teams -->
+      <div class="tech-item">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="10" width="16" height="16" rx="3" fill="#5059c9"/>
+          <rect x="14" y="6"  width="14" height="14" rx="3" fill="#7b83eb"/>
+          <circle cx="21" cy="7" r="4" fill="#7b83eb"/>
+          <circle cx="10" cy="9" r="3" fill="#5059c9"/>
+        </svg>
+        <span>Teams</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WHAT WE DO -->
+  <div class="section">
+    <div class="section-tag">What We Do</div>
+    <h2>Two Disciplines.<br />One Consultancy.</h2>
+    <p class="section-sub">Technical systems. Compliance documentation. Under one roof — covering the full spectrum of what modern organisations need to operate efficiently and win.</p>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <h3>Power Platform Solutions</h3>
+        <p>Custom Power BI dashboards, Power Apps, Excel databases, and Power Automate workflows built for real operational use.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">☁️</div>
+        <h3>MS 365 Setup & Automation</h3>
+        <p>Full Microsoft 365 configuration — SharePoint intranets, Teams, OneDrive, and automation that actually works.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📋</div>
+        <h3>Tender & Compliance Documentation</h3>
+        <p>End-to-end tender preparation, bid writing, and compliance packages for government, corporate, and energy sector contracts.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY SOLARIS -->
+  <div class="section" style="padding-top: 0;">
+    <div class="section-tag">Why Solaris TT</div>
+    <h2>Substance Over Slides.</h2>
+    <p class="section-sub">We could show you a polished presentation. We'd rather show you a working system — and let the results do the talking.</p>
+
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-dot"></div>
+        <div>
+          <h4>Fully Built. Fully Functional.</h4>
+          <p>Every system in our portfolio is a complete, working build — designed to real operational standards. Not concepts, not wireframes. You can see exactly what we deliver.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-dot"></div>
+        <div>
+          <h4>Technical and Compliance, Together</h4>
+          <p>We bring both disciplines under one roof — so your digital systems and your compliance documentation are built to work in sync.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-dot"></div>
+        <div>
+          <h4>Precision in Delivery</h4>
+          <p>Our background in national security operations means deadlines are kept, documentation is thorough, and nothing falls through the cracks.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-dot"></div>
+        <div>
+          <h4>Industry Experience That Speaks</h4>
+          <p>With experience across Shell, National Helicopters, and government agencies, we understand the standards large organisations require — and we deliver to them.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-dot"></div>
+        <div>
+          <h4>Public Sector Confidence</h4>
+          <p>With inter-agency experience and national security credentials, we understand how government and state enterprises operate — and what it takes to serve them well.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-dot"></div>
+        <div>
+          <h4>Built for This Market</h4>
+          <p>We're not adapting a foreign playbook. We know the local procurement landscape, the business culture, and what it takes to deliver results in Trinidad & Tobago.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA BANNER -->
+  <div class="cta-banner">
+    <h2>Not Sure Where to Start?</h2>
+    <p>Take our free 5-minute Digital Assessment. We'll review your situation and point you in the right direction — no commitment required.</p>
+    <a href="intake.html" class="btn-primary">Get Your Free Assessment</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <img src="../Solaris logo (2).png" alt="Solaris TT" />
+    <p>© 2026 Solaris TT. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="services.html">Services</a>
+      <a href="portfolio.html">Our Work</a>
+      <a href="team.html">Team</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+
+
+</body>
+</html>
