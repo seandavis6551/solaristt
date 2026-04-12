@@ -135,84 +135,14 @@
       .hero-ms-badge { bottom: 1.5rem; left: 50%; transform: translateX(-50%); white-space: nowrap; }
     }
 
-    /* HERO LOGO MARQUEE */
-    .marquee-frame {
-      display: flex;
-      width: fit-content;
-      flex-direction: column;
-      align-items: center;
-      margin: 0 auto 2.5rem;
-      background: rgba(17, 20, 30, 0.85);
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.07);
-      padding: 0 1.5rem;
+    /* HERO LOGO */
+    .hero-logo {
+      margin: 0 auto 2.8rem;
     }
 
-    .bulb-strip {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      padding: 0.65rem 0;
-    }
-
-    .bulb-strip span {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: #1b1f2c;
-      border: 1px solid rgba(255,255,255,0.1);
+    .hero-logo img {
+      height: 96px;
       display: block;
-      animation: bulb-chase 2.8s ease-in-out infinite;
-    }
-
-    /* Chase left → right on top strip */
-    .bulb-strip.top span:nth-child(1)  { animation-delay: 0.00s; }
-    .bulb-strip.top span:nth-child(2)  { animation-delay: 0.14s; }
-    .bulb-strip.top span:nth-child(3)  { animation-delay: 0.28s; }
-    .bulb-strip.top span:nth-child(4)  { animation-delay: 0.42s; }
-    .bulb-strip.top span:nth-child(5)  { animation-delay: 0.56s; }
-    .bulb-strip.top span:nth-child(6)  { animation-delay: 0.70s; }
-    .bulb-strip.top span:nth-child(7)  { animation-delay: 0.84s; }
-    .bulb-strip.top span:nth-child(8)  { animation-delay: 0.98s; }
-    .bulb-strip.top span:nth-child(9)  { animation-delay: 1.12s; }
-    .bulb-strip.top span:nth-child(10) { animation-delay: 1.26s; }
-    .bulb-strip.top span:nth-child(11) { animation-delay: 1.40s; }
-    .bulb-strip.top span:nth-child(12) { animation-delay: 1.54s; }
-
-    /* Chase right → left on bottom strip (continuous loop feel) */
-    .bulb-strip.bot span:nth-child(1)  { animation-delay: 1.54s; }
-    .bulb-strip.bot span:nth-child(2)  { animation-delay: 1.40s; }
-    .bulb-strip.bot span:nth-child(3)  { animation-delay: 1.26s; }
-    .bulb-strip.bot span:nth-child(4)  { animation-delay: 1.12s; }
-    .bulb-strip.bot span:nth-child(5)  { animation-delay: 0.98s; }
-    .bulb-strip.bot span:nth-child(6)  { animation-delay: 0.84s; }
-    .bulb-strip.bot span:nth-child(7)  { animation-delay: 0.70s; }
-    .bulb-strip.bot span:nth-child(8)  { animation-delay: 0.56s; }
-    .bulb-strip.bot span:nth-child(9)  { animation-delay: 0.42s; }
-    .bulb-strip.bot span:nth-child(10) { animation-delay: 0.28s; }
-    .bulb-strip.bot span:nth-child(11) { animation-delay: 0.14s; }
-    .bulb-strip.bot span:nth-child(12) { animation-delay: 0.00s; }
-
-    @keyframes bulb-chase {
-      0%, 20%, 80%, 100% {
-        background: #1b1f2c;
-        box-shadow: none;
-      }
-      45%, 55% {
-        background: #fff5b0;
-        box-shadow: 0 0 6px 2px rgba(255,235,100,0.85), 0 0 14px 5px rgba(255,210,60,0.4);
-      }
-    }
-
-    .marquee-logo {
-      padding: 1.4rem 2.2rem;
-    }
-
-    .marquee-logo img {
-      height: 88px;
-      display: block;
-      filter: drop-shadow(0 0 20px rgba(0,194,168,0.4));
     }
 
     .hero-tag {
@@ -547,19 +477,9 @@
   <section class="hero">
     <div class="hero-content">
 
-      <!-- MARQUEE LOGO -->
-      <div class="marquee-frame">
-        <div class="bulb-strip top">
-          <span></span><span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span><span></span>
-        </div>
-        <div class="marquee-logo">
-          <img src="./Solaris logo (2).png" alt="Solaris TT" />
-        </div>
-        <div class="bulb-strip bot">
-          <span></span><span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span><span></span>
-        </div>
+      <!-- HERO LOGO -->
+      <div class="hero-logo">
+        <img src="./Solaris logo (2).png" alt="Solaris TT" />
       </div>
 
       <div class="hero-tag">Digital Transformation · Commercial · Results</div>
