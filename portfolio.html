@@ -517,6 +517,24 @@
       text-overflow: ellipsis;
     }
 
+    .browser-screen {
+      position: relative;
+    }
+
+    .browser-screen::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 22%;
+      height: 30%;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background: rgba(0, 0, 0, 0.08);
+      z-index: 2;
+      border-radius: 0 0 4px 0;
+    }
+
     .browser-screen img {
       width: 100%;
       display: block;
